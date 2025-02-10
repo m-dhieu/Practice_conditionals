@@ -1,0 +1,161 @@
+Difference between the '>' and '>>' re-directories in files:
+
+Commands used:
+
+monicadhieu@DESKTOP-RP3SUJI:~$ echo “Try hack me” > secrets.sh
+monicadhieu@DESKTOP-RP3SUJI:~$ echo “Try hacking me” >> secrets.sh
+monicadhieu@DESKTOP-RP3SUJI:~$ cat secrets.sh
+“Try hack me”
+“Try hacking me”
+
+monicadhieu@DESKTOP-RP3SUJI:~$ echo “Try hacking me” >> secrets.sh
+monicadhieu@DESKTOP-RP3SUJI:~$ echo “Try hack me” > secrets.sh
+monicadhieu@DESKTOP-RP3SUJI:~$ cat secrets.sh
+“Try hack me”
+
+Conclusion:
+
+The difference between the '>' and '>>' is that the '>' and '>>' adds contents to the file when used separately or in that order, but if the '>' comes after '>>' it overrides all other contents in the files.
+
+ 
+
+The effect of '$ unset' command on variables:
+
+Commands used:
+
+monicadhieu@DESKTOP-RP3SUJI:~$ Your_Name="Tomson"
+monicadhieu@DESKTOP-RP3SUJI:~$ echo Your_Name
+Your_Name
+monicadhieu@DESKTOP-RP3SUJI:~$ echo $Your_Name
+Tomson
+monicadhieu@DESKTOP-RP3SUJI:~$ $usetYour_Name
+monicadhieu@DESKTOP-RP3SUJI:~$
+
+Conclusion:
+
+The '$ unset' command nullifies the variable.
+
+ 
+
+Conditionals (Difference between the 'test' and '[' ) :
+
+Commands used:
+
+monicadhieu@DESKTOP-RP3SUJI:~$ mkdir students_directory
+
+monicadhieu@DESKTOP-RP3SUJI:~$ vi test.sh
+
+monicadhieu@DESKTOP-RP3SUJI:~$ cat test.sh
+#!/bin/bash
+# Create a directory if it doesn't exist after confirmation
+if [ -d "students_directory" ]; then
+        echo "students_directory exists. Exiting."
+        exit 0 # Exit with a success code (0)
+fi
+
+monicadhieu@DESKTOP-RP3SUJI:~$ chmod +x test.sh
+
+monicadhieu@DESKTOP-RP3SUJI:~$ ./test.sh
+students_directory exists. Exiting.
+
+monicadhieu@DESKTOP-RP3SUJI:~$ vi testing.sh
+
+monicadhieu@DESKTOP-RP3SUJI:~$ cat testing.sh
+#!/bin/bash
+# Create a directory if it doesn't exist after confirmation
+if test -d "students_directory"; then
+        echo "students_directory exists. We will exit the execution."
+fi
+
+monicadhieu@DESKTOP-RP3SUJI:~$ chmod +x testing.sh
+
+monicadhieu@DESKTOP-RP3SUJI:~$ ./testing.sh
+students_directory exists. We will exit the execution.
+
+monicadhieu@DESKTOP-RP3SUJI:~$
+
+Conclusion:
+
+The 'test' and '[' conditions are the same in terms of the effect they have. However, the '[' is preferred in terms of visual appeal.
+
+ 
+
+Update to the test.sh script to create the students_directory if it doesn't exist, with 3 cohort files that have 3 names of students each:
+
+Commands used:
+
+monicadhieu@DESKTOP-RP3SUJI:~$ vi test.sh
+
+monicadhieu@DESKTOP-RP3SUJI:~$ cat test.sh
+#!/bin/bash
+# Create a directory if it doesn't exist, with 3 cohort files that have 3 names of students each
+
+DIR_NAME="students_directory"
+FILE1="$DIR_NAME/cohort1.txt"
+FILE2="$DIR_NAME/cohort2.txt"
+FILE3="$DIR_NAME/cohort3.txt"
+
+if [ ! -d "$DIR_NAME" ]; then
+  mkdir "$DIR_NAME"
+  echo "Directory '$DIR_NAME' created."
+else
+  echo "Directory '$DIR_NAME' already exists."
+fi
+
+if [ ! -f "$FILE1" ]; then
+  echo -e "Alice\nBob\nCharlie" > "$FILE1"
+  echo "File '$FILE1' created."
+else
+  echo "File '$FILE1' already exists."
+fi
+
+if [ ! -f "$FILE2" ]; then
+  echo -e "David\nEve\nFrank" > "$FILE2"
+  echo "File '$FILE2' created."
+else
+  echo "File '$FILE2' already exists."
+fi
+
+if [ ! -f "$FILE3" ]; then
+  echo -e "Grace\nHeidi\nIvan" > "$FILE3"
+  echo "File '$FILE3' created."
+else
+  echo "File '$FILE3' already exists."
+fi
+
+echo "Script execution completed."
+
+monicadhieu@DESKTOP-RP3SUJI:~$ chmod +x test.sh
+
+monicadhieu@DESKTOP-RP3SUJI:~$ ./test.sh
+Directory 'students_directory' already exists.
+File 'students_directory/cohort1.txt' created.
+File 'students_directory/cohort2.txt' created.
+File 'students_directory/cohort3.txt' created.
+Script execution completed.
+
+monicadhieu@DESKTOP-RP3SUJI:~$ cat cohort1.txt
+cat: cohort1.txt: No such file or directory
+monicadhieu@DESKTOP-RP3SUJI:~$ cd students_directory
+
+monicadhieu@DESKTOP-RP3SUJI:~/students_directory$ ls
+cohort1.txt  cohort2.txt  cohort3.txt
+
+monicadhieu@DESKTOP-RP3SUJI:~/students_directory$ cat cohort1.txt
+Alice
+Bob
+Charlie
+monicadhieu@DESKTOP-RP3SUJI:~/students_directory$ cat cohort2.txt
+David
+Eve
+Frank
+monicadhieu@DESKTOP-RP3SUJI:~/students_directory$ cat cohort3.txt
+Grace
+Heidi
+Ivan
+
+monicadhieu@DESKTOP-RP3SUJI:~$
+
+Conclusion: 
+
+If the test conditions are met the script runs without era.
